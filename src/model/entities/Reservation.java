@@ -1,20 +1,21 @@
 package model.entities;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Reservation {
 	private Integer nummber;
-	private LocalDateTime checkIn;
-	private LocalDateTime checkOut;
+	private Date checkIn;
+	private Date checkOut;
 	
-	public static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public Reservation() {
 	}
 
-	public Reservation(Integer nummber, LocalDateTime checkIn, LocalDateTime checkOut) {
+	public Reservation(Integer nummber, Date checkIn, Date checkOut) {
 		this.nummber = nummber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
@@ -28,20 +29,20 @@ public class Reservation {
 		this.nummber = nummber;
 	}
 
-	public LocalDateTime getCheckIn() {
+	public Date getCheckIn() {
 		return checkIn;
 	}
 
-	public LocalDateTime getCheckOut() {
+	public Date getCheckOut() {
 		return checkOut;
 	}
 
 	public long duration() {
-		long diff = checkOut.getSecond() - checkIn.getSecond();
+		long diff = checkOut.getTime() - checkIn.getTime();
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void update(LocalDateTime checkIn, LocalDateTime checkOut) {
+	public void update(Date checkIn, Date checkOut) {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 	}
